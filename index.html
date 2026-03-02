@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maya Chen — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FDF9F4;
+      --sand: #E8DDD0;
+      --terracotta: #C4714A;
+      --terracotta-light: #F0E4DA;
+      --brown: #3D2B1F;
+      --brown-mid: #6B4C3B;
+      --brown-light: #9C7B6A;
+      --sage: #7A8C6E;
+      --sage-light: #EBF0E6;
+      --text: #2C1F17;
+      --text-soft: #6B5047;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 5%;
+      background: rgba(250, 247, 242, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand);
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled { box-shadow: 0 2px 20px rgba(60,40,20,0.07); }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: var(--brown);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--brown-mid);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .blob1 { width: 520px; height: 520px; background: #E8C4A0; top: -100px; right: -80px; animation: drift 8s ease-in-out infinite alternate; }
+    .blob2 { width: 360px; height: 360px; background: #B8C9A3; bottom: 0px; left: -60px; animation: drift 10s ease-in-out infinite alternate-reverse; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.05); }
+    }
+
+    .hero-inner {
+      max-width: 700px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--sage-light);
+      color: var(--sage);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.18;
+      color: var(--brown);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--brown);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,113,74,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--brown);
+      border: 1.5px solid var(--sand);
+    }
+    .btn-outline:hover {
+      border-color: var(--brown);
+      transform: translateY(-2px);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 5%; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      color: var(--brown);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .section-intro {
+      color: var(--text-soft);
+      font-size: 1rem;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── PROJECTS ── */
+    #work { background: var(--warm-white); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--cream);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(60,40,20,0.1);
+    }
+
+    .project-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      display: block;
+      background: var(--sand);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-image-placeholder {
+      width: 100%;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .project-body { padding: 1.75rem; }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: var(--terracotta-light);
+      color: var(--terracotta);
+    }
+
+    .tag.sage {
+      background: var(--sage-light);
+      color: var(--sage);
+    }
+
+    h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.35rem;
+      color: var(--brown);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--terracotta);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap 0.2s;
+    }
+
+    .project-card:hover .project-link { gap: 0.6rem; }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -16px -16px 16px 16px;
+      border-radius: 24px;
+      background: var(--terracotta-light);
+      z-index: 0;
+    }
+
+    .about-photo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: 20px;
+      object-fit: cover;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .about-text h2 { margin-bottom: 1.25rem; }
+
+    .about-text p {
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+      line-height: 1.85;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .skill-pill {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      color: var(--brown-mid);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      flex-shrink: 0;
+    }
+
+    /* ── RESUME ── */
+    #resume { background: var(--warm-white); }
+
+    .resume-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .resume-col h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .resume-item {
+      margin-bottom: 1.75rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--sand);
+      transition: border-color 0.2s;
+    }
+
+    .resume-item:hover { border-left-color: var(--terracotta); }
+
+    .resume-item-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--brown);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .resume-item-company {
+      font-size: 0.875rem;
+      color: var(--terracotta);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .resume-item-date {
+      font-size: 0.78rem;
+      color: var(--brown-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    .resume-item-desc {
+      font-size: 0.875rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .resume-download {
+      margin-top: 2.5rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--brown);
+      color: var(--cream);
+      text-align: center;
+    }
+
+    #contact .section-label { color: var(--terracotta-light); }
+    #contact h2 { color: var(--cream); }
+    #contact .section-intro { color: rgba(250,247,242,0.65); margin: 0 auto 2.5rem; }
+
+    .contact-form {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    input, textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(250,247,242,0.35); }
+    input:focus, textarea:focus {
+      border-color: var(--terracotta);
+      background: rgba(255,255,255,0.1);
+    }
+
+    textarea { resize: vertical; min-height: 130px; }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(250,247,242,0.5);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .social-link:hover { color: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      padding: 1.5rem 5%;
+      font-size: 0.8rem;
+      color: rgba(250,247,242,0.3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .about-image-wrap { max-width: 320px; margin: 0 auto; }
+
+      .resume-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">Maya Chen</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-blob blob1"></div>
+    <div class="hero-blob blob2"></div>
+    <div class="hero-inner">
+      <span class="hero-tag">✦ Product Designer</span>
+      <h1>Designing things people <em>actually</em> love to use</h1>
+      <p class="hero-sub">I'm Maya — a product designer with 5 years of experience turning complex problems into clear, human-centered experiences. Currently open to new opportunities.</p>
+      <div class="btn-group">
+        <a href="#work" class="btn btn-primary">See my work ↓</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label reveal">Selected Projects</p>
+    <h2 class="reveal">Things I've built</h2>
+    <p class="section-intro reveal">A mix of 0→1 products, redesigns, and design systems across fintech, health, and consumer apps.</p>
+
+    <div class="projects-grid">
+
+      <a href="#" class="project-card reveal">
+        <div class="project-image-placeholder" style="background: #F0E4DA;">🌱</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Mobile</span>
+            <span class="tag sage">Health</span>
+          </div>
+          <h3>Bloom – Habit Tracking App</h3>
+          <p class="project-desc">Redesigned the core habit-tracking experience, reducing friction in daily check-ins and improving 30-day retention by 34%.</p>
+          <span class="project-link">View case study →</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card reveal reveal-delay-1">
+        <div class="project-image-placeholder" style="background: #EBF0E6;">💸</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Web App</span>
+            <span class="tag">Fintech</span>
+          </div>
+          <h3>Penny – Personal Finance Dashboard</h3>
+          <p class="project-desc">Led end-to-end design for a budgeting dashboard targeting first-time earners, from research through launch.</p>
+          <span class="project-link">View case study →</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card reveal reveal-delay-2">
+        <div class="project-image-placeholder" style="background: #E8DDD0;">🧩</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Design System</span>
+          </div>
+          <h3>Pebble Design System</h3>
+          <p class="project-desc">Built a cross-platform component library from scratch, adopted by 6 product teams and cutting design-to-dev handoff time in half.</p>
+          <span class="project-link">View case study →</span>
+        </div>
+      </a>
+
+      <a href="#" class="project-card reveal reveal-delay-3">
+        <div class="project-image-placeholder" style="background: #F0E4DA;">🛒</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">E-commerce</span>
+            <span class="tag sage">Research</span>
+          </div>
+          <h3>Meadow – Checkout Redesign</h3>
+          <p class="project-desc">Ran a 3-month discovery and redesign of the checkout funnel, resulting in a 22% lift in completed purchases.</p>
+          <span class="project-link">View case study →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-image-wrap reveal">
+      <div class="about-photo">🙂</div>
+    </div>
+    <div class="about-text">
+      <p class="section-label reveal">About me</p>
+      <h2 class="reveal">Hi, I'm Maya 👋</h2>
+      <p class="reveal">I'm a product designer based in San Francisco, originally from Vancouver. I care a lot about making software feel genuinely good — not just functional, but warm and trustworthy.</p>
+      <p class="reveal">Before design, I studied cognitive science, which shapes how I think about mental models, decision-making, and why people do what they do. These days I'm focused on health and fintech products where good design genuinely changes people's lives.</p>
+      <p class="reveal">Outside of work I'm usually hiking, making very mediocre pottery, or testing new sourdough recipes.</p>
+      <div class="skills-grid reveal">
+        <div class="skill-pill">User Research</div>
+        <div class="skill-pill">Interaction Design</div>
+        <div class="skill-pill">Prototyping</div>
+        <div class="skill-pill">Design Systems</div>
+        <div class="skill-pill">Figma</div>
+        <div class="skill-pill">Usability Testing</div>
+        <div class="skill-pill">Information Architecture</div>
+        <div class="skill-pill">Cross-functional collab</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <p class="section-label reveal">Experience & Education</p>
+    <h2 class="reveal">Resume</h2>
+    <p class="section-intro reveal">Five years of design work across startups and scale-ups.</p>
+
+    <div class="resume-layout">
+      <div class="resume-col">
+        <h3>Experience</h3>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">Senior Product Designer</div>
+          <div class="resume-item-company">Bloom Health — San Francisco</div>
+          <div class="resume-item-date">2022 – Present</div>
+          <div class="resume-item-desc">Led design for core growth surface. Owned end-to-end for onboarding, habit flows, and notifications. Collaborated with data team on experimentation framework.</div>
+        </div>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">Product Designer</div>
+          <div class="resume-item-company">Penny Financial — Remote</div>
+          <div class="resume-item-date">2020 – 2022</div>
+          <div class="resume-item-desc">First design hire. Built design system from scratch, shipped mobile app v1, and ran bi-weekly user research sessions.</div>
+        </div>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">UX Designer (Contract)</div>
+          <div class="resume-item-company">Various clients</div>
+          <div class="resume-item-date">2019 – 2020</div>
+          <div class="resume-item-desc">E-commerce, SaaS, and consumer apps. Specialised in research, wireframing, and rapid prototyping.</div>
+        </div>
+
+        <div class="resume-download reveal">
+          <a href="#" class="btn btn-outline">Download full resume ↓</a>
+        </div>
+      </div>
+
+      <div class="resume-col">
+        <h3>Education</h3>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">BSc Cognitive Science</div>
+          <div class="resume-item-company">University of British Columbia</div>
+          <div class="resume-item-date">2015 – 2019</div>
+          <div class="resume-item-desc">Focus on human-computer interaction and behavioural psychology. Graduated with distinction.</div>
+        </div>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">UX Design Certificate</div>
+          <div class="resume-item-company">Google / Coursera</div>
+          <div class="resume-item-date">2019</div>
+          <div class="resume-item-desc">Completed 6-course professional certificate in UX research and design.</div>
+        </div>
+
+        <h3 style="margin-top: 2.5rem;">Recognition</h3>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">Webby Award Honoree</div>
+          <div class="resume-item-company">Best Health App — 2023</div>
+          <div class="resume-item-date">Bloom v2.0</div>
+        </div>
+
+        <div class="resume-item reveal">
+          <div class="resume-item-title">Designer of the Year</div>
+          <div class="resume-item-company">Fintech Design Awards — 2022</div>
+          <div class="resume-item-date">Finalist</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Say hello</p>
+    <h2>Let's work together</h2>
+    <p class="section-intro">Whether you have a role, a project, or just want to chat about design — my inbox is always open.</p>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Your name" />
+        <input type="email" placeholder="Email address" />
+      </div>
+      <input type="text" placeholder="Subject" />
+      <textarea placeholder="Tell me what you're working on..."></textarea>
+      <button class="btn btn-primary" style="justify-content: center;" onclick="alert('Message sent! (Connect this to a form service like Formspree)')">Send message ✦</button>
+    </div>
+
+    <div class="contact-socials">
+      <a href="#" class="social-link">LinkedIn ↗</a>
+      <a href="#" class="social-link">Dribbble ↗</a>
+      <a href="#" class="social-link">Read.cv ↗</a>
+      <a href="mailto:hello@mayachen.com" class="social-link">hello@mayachen.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Maya Chen · Designed & coded with care ♥</p>
+  </footer>
+
+  <script>
+    // Scroll shadow on nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      const isOpen = links.style.display === 'flex';
+      links.style.display = isOpen ? 'none' : 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '64px';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'var(--cream)';
+      links.style.padding = '1rem 5%';
+      links.style.borderBottom = '1px solid var(--sand)';
+    }
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        const links = document.querySelector('.nav-links');
+        links.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
